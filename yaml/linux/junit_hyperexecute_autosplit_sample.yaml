@@ -5,8 +5,19 @@ runson: linux
 autosplit: true
 concurrency: 3
 
+vars:
+ framework: net5.0
+preDirectives:
+ Commands:
+  - echo ${framework}
+
+env:
+  PAT: ${{ .secrets.Token }}
+  
+
 pre:
   - mvn clean install
+  - python3 key.py ${PAT}
 
 mergeArtifacts: true
 
