@@ -1,17 +1,171 @@
 ---
 version: 0.1
-runson: mac
+runson: ${matrix.os}
 
+autosplit: true
+concurrency: 100
+parallelism: 1
 matrix:
-  classname: ["SelPlayGroundTest1", "SelPlayGroundTest2", "SelPlayGroundTest3" ]
+  #,
+  #,, , mac, linux, win, win, win, win, win, win, win, win, win
+  os: [mac,mac13,mac15]
+#    ,linux,linux,linux,linux,linux,linux,linux,linux,
+#       linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#       linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
+#        linux,linux,linux,linux,linux,linux,linux,linux,linux,linux]
+  #,,"edge", "firefox",
+  browser: ["chrome"]
+  #, "firefox", "edge"
+  #version: ["129", "128", "127"]
+  #version:  ["latest", "130", "131"]
+  version: ["128"]
+  selenium_version: ["4.24.0"]
 
-pre:
-  - mvn -Dmaven.repo.local=${CACHE_DIR} -Dmaven.test.skip=true clean install
+mergeArtifacts: true
 
-testSuites:
-  - mvn -Dplatname=mac -Dmaven.repo.local=m2_cache_dir -Dtest=$classname test site surefire-report:report
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: cat abc.txt
+#
+testRunnerCommand: mvn -Dplatname=${matrix.os} -Dbrowser=${matrix.browser} -DbrowserVersion=${matrix.version} -Dselenium_version="${matrix.selenium_version}" -Dtest=$test test site surefire-report:report
+#testRunnerCommand: mvn -Dplatname=${matrix.os} -Dbrowser=${matrix.browser} -Dselenium_version="${matrix.selenium_version}" -DbrowserVersion=${matrix.version} -Dtest=$test test site surefire-report:report
+#runtime:
+#  - language: java
+#    version: "11"
+#  - language: node
+#    version: "20"
+#  - language: python
+#    version: "3.11"
+#  - language: ruby
+#    version: "3.1.2"
+#post:
+#  - printenv
+#  - echo "Printing my vars"
+#  - echo ${NODE_LANGUAGE_PATH}
+#  - echo ${PYTHON_LANGUAGE_PATH}
+#  - echo ${RUBY_LANGUAGE_PATH}
+#  - echo ${JAVA_LANGUAGE_PATH}
+#  - echo ${AZURE_CLIENT_ID}
+#  - echo ${HYPEREXECUTE_WORKING_DIR}
+#  - echo ${PYTHONPATH}
+#  - echo ${KUBERNETES_PORT_443_TCP_PORT}
+#  - echo ${selenium_version}
+#  - java --version
+#  - node --version
+#  - python --version
+#  - ruby --version
+#  - dotnet --version
 
 retryOnFailure: true
-maxRetries: 1
+maxRetries: 2
+cacheKey: '{{ checksum "pom.xml" }}'
+cacheDirectories:
+  - .m2
 
-jobLabel: [selenium-junit, mac, matrix]
+jobLabel: [selenium-junit, autosplit]
+uploadArtefacts:
+  - name: Final-Report
+    path:
+      - yaml/linux/**
+#  - name: Target-Report
+#    path:
+#      - target/**
+
+#report: true
+partialReports:
+  - location: target/surefire-reports/html
+    type: html
+    frameworkName: extent
+    email:
+      to:
+        - akanshs@lambdatest.com
+
+#report: true
+#partialReports:
+#   # type: html
+#    frameworkName: testng
+#    email:
+#      to:
+#        - akanshs@lambdatest.com
+#
+#errorCategorizedReport:
+#  enabled: true
+
+#regionConfig:
+#  - region: australiacentral
+#    os: win
+#
+#project:
+#  name: TestngDiffUploadLinux111
+#differentialUpload:
+#  enabled: true
+#  ttlHours: 360
+
+#runtime:
+#  language: python
+#  version: "3.11"
+#pre:
+  #- printenv
+  #- echo ${PAT}
+  #- python3 key.py ${PAT}
+  #- python3 key.py ${PAT12}
+#  - python3 key.py ${TAT}
+#  - python3 key.py ${VAL}
+#  - python3 key.py ${KAL}
+#  - python3 key.py ${TOK}
+#  - python3 key.py ${ABC}
+#  - python3 key.py ${XYZ}
+#  - python3 key.py ${COMMON}
+
+#post:
+  #- printenv
+  #- python3 key.py ${PAT}
+ # - python3 key.py ${PAT12}
+ # - python3 key.py ${TAT}
+#  - python3 key.py ${VAL}
+#  - python3 key.py ${KAL}
+#  - python3 key.py ${TOK}
+  #- python3 key.py ${COMMON}
+#pre:
+#  - python --version
+#
+#accessibilityJob: true
+
+#env:
+  #PAT: ${{ .secrets.UserLevel }}
+ # PAT12: ${{ .secrets.UserLevel12 }}
+  #TAT: ${{ .secrets.Token }}
+#  VAL: ${{ .secrets.ProjectLevel }}
+#  KAL: ${{ .secrets.OrgSecretVal }}
+#  TOK: ${{ .secrets.git_token }}
+  #ABC: ${{ .secrets.abc }}
+  #XYZ: ${{ .secrets.xyz }}
+  #COMMON: ${{ .secrets.CommonSecretVal }}
+  #PROJECT: ${{ .secrets.test111 }}
+#
+#project:
+#  id: 01JK5R6GWWSRX3R68AMQRT6642
+#  name: p2n33333
+#  type: custom
+
+  #  id: 01JJXYHA45N5MTH54B22V03406
+#
+#debug: true
+report: true
+#debug: true
+#runtime:
+#  - language: dotnet
+#    version: "8"
+
+#env:
+#  HE_DISABLED_VIDEO_PACKAGES: "false"
+
+#env:
+#  HE_DISABLED_VIDEO_PACKAGES: "true"
