@@ -8,7 +8,7 @@ parallelism: 1
 matrix:
   #,
   #,, , mac, linux, win, win, win, win, win, win, win, win, win
-  os: [mac,mac13,mac15]
+  os: [mac,mac13,mac15,win11]
 #    ,linux,linux,linux,linux,linux,linux,linux,linux,
 #       linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
 #       linux,linux,linux,linux,linux,linux,linux,linux,linux,linux,
