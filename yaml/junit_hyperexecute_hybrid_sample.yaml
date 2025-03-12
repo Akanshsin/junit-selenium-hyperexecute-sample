@@ -11,7 +11,7 @@ concurrency: 3
 parallelism: 1
 
 matrix:
-  os: [mac, win, linux]
+  os: [win10, win10, win10]
 
 env:
   CACHE_DIR: m2_cache_dir
