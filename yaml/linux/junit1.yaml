@@ -1,9 +1,9 @@
 ---
 version: 0.1
-runson: linux
+#runson: linux
 
 autosplit: true
-concurrency: 3
+#concurrency: 3
 
 vars:
  framework: net5.0
