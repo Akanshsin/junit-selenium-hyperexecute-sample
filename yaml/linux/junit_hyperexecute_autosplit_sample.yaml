@@ -8,8 +8,8 @@ concurrency: 3
 vars:
  framework: net5.0
 
-env:
-  PAT: ${{ .secrets.Tokenqq111 }}
+#env:
+  #PAT: ${{ .secrets.Tokenqq111 }}
   
 
 pre:
