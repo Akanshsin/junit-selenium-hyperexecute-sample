@@ -9,7 +9,7 @@ vars:
  framework: net5.0
 
 env:
-  PAT: ${{ .secrets.Token }}
+  PAT: ${{ .secrets.Tokenqq111 }}
   
 
 pre:
