@@ -1,5 +1,5 @@
 ---
-version: 0.5
+version: 0.1
 runson: linux
 
 autosplit: true
@@ -11,7 +11,8 @@ vars:
 #env:
   #PAT: ${{ .secrets.Tokenqq111 }}
   
-
+tunnel: true
+tunnelNames: [ddd]
 pre:
   - mvn clean install
   - python3 key.py ${PAT}
