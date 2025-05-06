@@ -11,11 +11,11 @@ vars:
 #env:
   #PAT: ${{ .secrets.Tokenqq111 }}
   
-tunnel: true
-tunnelNames: [ddd]
+# tunnel: true
+# tunnelNames: [ddd]
 pre:
   - mvn clean install
-  - python3 key.py ${PAT}
+  # - python3 key.py ${PAT}
   - echo ${framework}
 
 mergeArtifacts: true
