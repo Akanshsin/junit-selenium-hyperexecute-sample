@@ -58,6 +58,7 @@ public class SelPlayGroundTest1
         capabilities.setCapability("video", true);
         capabilities.setCapability("console", true);
         capabilities.setCapability("selenium_version",  "4.24.0");
+        capabilities.setCapability("smartWait",  "60");
 
         try
         {
@@ -100,7 +101,7 @@ public class SelPlayGroundTest1
             
             driver.findElement(By.cssSelector("#sum1")).sendKeys("65");
             driver.findElement(By.cssSelector("#sum2")).sendKeys("35");
-            driver.findElement(By.xpath("//*[@id='gettotal']/button")).click();
+            driver.findElement(By.xpath("//*[@id='gettotal11']/button")).click();
             
             String sum = driver.findElement(By.cssSelector("#message")).getText();
             if (sum.equals("100"))
