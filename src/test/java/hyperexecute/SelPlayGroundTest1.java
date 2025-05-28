@@ -59,7 +59,7 @@ public class SelPlayGroundTest1
         capabilities.setCapability("console", true);
         capabilities.setCapability("selenium_version",  "4.24.0");
         capabilities.setCapability("smartWait",  "60");
-        capabilities.setCapability("smartWaitRetryDelay",  3);
+        capabilities.setCapability("smartWaitRetryDelay",  3000);
 
         try
         {
